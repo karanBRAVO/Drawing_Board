@@ -41,6 +41,7 @@ class DrawingBoard():
         # self.drawGrid(self.colors.blue)
         self.storePixels()
         self.drawPixels()
+        self.changePixelColor()
         self.drawMouse(self.mouseX, self.mouseY, self.colors.black)
 
     def start(self):
@@ -53,6 +54,22 @@ class DrawingBoard():
                         self.run = False
             self.__draw__()
             self.update()
+
+    def changePixelColor(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_g]:
+            self.pixelColor = self.colors.green
+        elif keys[pygame.K_r]:
+            self.pixelColor = self.colors.red
+        elif keys[pygame.K_b]:
+            self.pixelColor = self.colors.blue
+        elif keys[pygame.K_y]:
+            self.pixelColor = self.colors.yellow
+        elif keys[pygame.K_a]:
+            self.pixelColor = self.colors.aqua
+        elif keys[pygame.K_p]:
+            self.pixelColor = self.colors.pink
 
     def drawPixels(self):
         for p in self.pixels:
