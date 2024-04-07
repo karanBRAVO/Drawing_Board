@@ -1,8 +1,8 @@
 from DrawingBoard.drawingBoard import DrawingBoard
 
 # Drawing board dimension
-width = 600
-height = 500
+width = 400
+height = 400
 
 if __name__ == "__main__":
     print("[*] starting drawing board...")

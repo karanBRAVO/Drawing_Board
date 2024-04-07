@@ -25,10 +25,7 @@ class DrawingBoard():
         self.gridHeight = 10
         # mouse
         pygame.mouse.set_visible(False)
-        self.mouseWidth = 10
-        self.mouseHeight = 10
-        self.mouseX = -1
-        self.mouseY = -1
+        self.mouse = self.__getBB(-1, -1, 10, 10)
         # pixels
         self.pixels = []
         self.pixelWidth = 10
@@ -41,12 +38,12 @@ class DrawingBoard():
         self.__getPressedKey()
         self.__getMousePosition()
         self.window.fill(self.colors.white)
-        self.__drawGrid(self.colors.blue)
+        # self.__drawGrid(self.colors.blue)
         self.__storePixels()
         self.__removePixel()
         self.__drawPixels()
         self.__changePixelColor()
-        self.__drawMouse(self.mouseX, self.mouseY, self.pixelColor)
+        self.__drawMouse(self.pixelColor)
 
     def start(self):
         while self.run:
@@ -62,7 +59,12 @@ class DrawingBoard():
 
     def __removePixel(self):
         if self.keys[pygame.K_LCTRL]:
-            pass
+            if pygame.mouse.get_pressed(3)[2]:
+                for i in range(len(self.pixels)):
+                    p = self.pixels[i]
+                    if p['bb'].colliderect(self.mouse):
+                        self.pixels.pop(i)
+                        break
 
     def __changePixelColor(self):
         if self.keys[pygame.K_g]:
@@ -83,15 +85,14 @@ class DrawingBoard():
 
     def __drawPixels(self):
         for p in self.pixels:
-            self.__drawRect(p['x'], p['y'],
-                            self.pixelWidth,
-                            self.pixelHeight,
+            self.__drawRect(p['bb'].x, p['bb'].y,
+                            p['bb'].width, p['bb'].height,
                             p['color'], 0, -1)
 
     def __storePixels(self):
         if pygame.mouse.get_pressed(3)[0]:
-            x = self.mouseX
-            y = self.mouseY
+            x = self.mouse.x
+            y = self.mouse.y
             if x < 0:
                 x = 0
             if x > self.windowWidth-self.pixelHeight:
@@ -100,21 +101,21 @@ class DrawingBoard():
                 y = 0
             if y > self.windowHeight-self.pixelHeight:
                 y = self.windowHeight - self.pixelHeight
+            bb = self.__getBB(x, y, self.pixelWidth, self.pixelHeight)
             p = {
-                'x': x,
-                'y': y,
+                'bb': bb,
                 'color': self.pixelColor
             }
             if p not in self.pixels:
                 self.pixels.append(p)
 
     def __getMousePosition(self):
-        self.mouseX, self.mouseY = pygame.mouse.get_pos()
+        self.mouse.x, self.mouse.y = pygame.mouse.get_pos()
 
-    def __drawMouse(self, x: int, y: int, color):
-        self.__drawRect(x, y,
-                        self.mouseWidth,
-                        self.mouseHeight,
+    def __drawMouse(self, color):
+        self.__drawRect(self.mouse.x, self.mouse.y,
+                        self.mouse.width,
+                        self.mouse.height,
                         color, 0, -1)
 
     def __drawGrid(self, color):
@@ -126,6 +127,9 @@ class DrawingBoard():
     def __drawRect(self, x: int, y: int, w: int, h: int, color, cw: int, br: int):
         pygame.draw.rect(self.window, color, (x, y, w, h),
                          cw, border_radius=br)
+
+    def __getBB(self, x: int, y: int, w: int, h: int):
+        return pygame.Rect(x, y, w, h)
 
     def __update(self):
         pygame.display.update()
