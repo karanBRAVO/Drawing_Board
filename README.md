@@ -1,10 +1,23 @@
-# drawing_board
-- This is a Project based on Paint and Pixel Art.
-- Preview:
-- ![drawingBoard](https://user-images.githubusercontent.com/77043443/193540844-a28a5069-07b6-4f4e-a579-f6b65c061a1b.png)
-- In this you can:
-- draw, erase, zoom in , zoom out, remove all options
-- contains variety of colors
-- grid option and save option available
-- TODO: Undo and Redo options
-- Try it Yourself
+# Drawing Board
+
+In this project, I am creating a Drawing Board on which you can draw just like on any canvas or paint.
+
+## Features
+
+- From scratch
+- using python classes (OOPs)
+- save the image
+- erase
+
+## Technologies
+
+- `Python`
+- `Pygame`
+
+## License
+
+MIT
+
+## Contribution Guidelines
+
+Everyone is allowed to contribute to this project. You can add more features to this project and contribute to this project.
