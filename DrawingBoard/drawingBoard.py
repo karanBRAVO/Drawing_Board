@@ -18,6 +18,7 @@ class DrawingBoard():
         # Window instance
         self.window = pygame.display.set_mode(
             (self.windowWidth, self.windowHeight))
+        pygame.display.set_caption("Drawing Board")
         # state
         self.run = True
         # grid
