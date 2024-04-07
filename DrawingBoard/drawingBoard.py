@@ -58,13 +58,12 @@ class DrawingBoard():
         self.quit()
 
     def __removePixel(self):
-        if self.keys[pygame.K_LCTRL]:
-            if pygame.mouse.get_pressed(3)[2]:
-                for i in range(len(self.pixels)):
-                    p = self.pixels[i]
-                    if p['bb'].colliderect(self.mouse):
-                        self.pixels.pop(i)
-                        break
+        if pygame.mouse.get_pressed(3)[2]:  # right click
+            for i in range(len(self.pixels)):
+                p = self.pixels[i]
+                if p['bb'].colliderect(self.mouse):
+                    self.pixels.pop(i)
+                    break
 
     def __changePixelColor(self):
         if self.keys[pygame.K_g]:
@@ -90,7 +89,7 @@ class DrawingBoard():
                             p['color'], 0, -1)
 
     def __storePixels(self):
-        if pygame.mouse.get_pressed(3)[0]:
+        if pygame.mouse.get_pressed(3)[0]:  # left click
             x = self.mouse.x
             y = self.mouse.y
             if x < 0:
