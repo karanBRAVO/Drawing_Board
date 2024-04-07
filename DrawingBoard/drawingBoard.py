@@ -43,6 +43,7 @@ class DrawingBoard():
         self.__removePixel()
         self.__drawPixels()
         self.__changePixelColor()
+        self.__saveAsImage()
         self.__drawMouse(self.pixelColor)
 
     def start(self):
@@ -56,6 +57,11 @@ class DrawingBoard():
             self.__draw()
             self.__update()
         self.quit()
+
+    def __saveAsImage(self):
+        if self.keys[pygame.K_LCTRL] and self.keys[pygame.K_s]:
+            pygame.image.save(self.window, "untitled.png")
+            print("[+] Saved")
 
     def __removePixel(self):
         if pygame.mouse.get_pressed(3)[2]:  # right click
